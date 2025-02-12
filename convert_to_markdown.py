@@ -2,14 +2,13 @@
 """
 Markdown Converter Tool
 Converts various file formats to Markdown using Markitdown.
-Supports drag-and-drop from Windows File Explorer.
+Supports command-line usage and drag-and-drop from Windows File Explorer.
 
 Usage:
 1. Run from terminal: python convert_to_markdown.py [output_directory] [file1] [file2] ...
 2. Or drag and drop files onto the script in Windows Explorer
 """
 
-import os
 import sys
 from pathlib import Path
 from markitdown import MarkItDown
@@ -37,42 +36,33 @@ def convert_file(file_path, output_dir):
         print(f"✗ Error converting {file_path.name}: {str(e)}")
         return False
 
-
 def main():
-    # Get output directory and file paths from command line arguments
+    # Check if output directory is provided
     if len(sys.argv) < 3:
-        print("Please provide an output directory and at least one file to convert.")
         print("Usage: python convert_to_markdown.py [output_directory] [file1] [file2] ...")
-        print("Or drag and drop files onto this script in Windows Explorer")
-        input("Press Enter to exit...")
-        return
+        sys.exit(1)
 
+    # Get output directory and create it if it doesn't exist
     output_dir = Path(sys.argv[1])
-    if not output_dir.exists() or not output_dir.is_dir():
-        print(f"✗ Output directory does not exist: {output_dir}")
-        input("Press Enter to exit...")
-        return
+    output_dir.mkdir(parents=True, exist_ok=True)
 
-    # Process each file
+    # Get list of files to convert
+    files = [Path(f) for f in sys.argv[2:]]
     success_count = 0
-    total_files = len(sys.argv) - 2
-    
+    total_files = len(files)
+
     print(f"\nConverting {total_files} file(s) to Markdown...\n")
-    
-    for file_arg in sys.argv[2:]:
-        file_path = Path(file_arg)
-        if file_path.exists():
-            if convert_file(file_path, output_dir):
+
+    # Convert each file
+    for file in files:
+        if file.exists():
+            if convert_file(file, output_dir):
                 success_count += 1
         else:
-            print(f"✗ File not found: {file_arg}")
-    
+            print(f"✗ File not found: {file}")
+
     # Print summary
     print(f"\nConversion complete: {success_count}/{total_files} files converted successfully")
-    
-    # If run by double-clicking, wait for user input before closing
-    if len(sys.argv) == 3:  # When dragged and dropped, there's only one file
-        input("\nPress Enter to exit...")
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

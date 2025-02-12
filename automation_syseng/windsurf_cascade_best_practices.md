@@ -264,3 +264,30 @@ This initialization process ensures:
 - Clear documentation of all memory IDs
 - Established rules for code and document modification
 - Proper tracking of all future memories
+
+## Markdown Conversion Script
+Was first implemented in 2025-02-09 in the Frameworks project. This implementation could be replicated in other projects going forward.
+
+### Summary of Implementation
+
+The Python script `convert_to_markdown.py` is designed to convert various file formats to Markdown using the `Markitdown` library. It supports:
+
+1. **Command-Line Usage**: The script can be run from the terminal with the syntax:
+   ```bash
+   python convert_to_markdown.py [output_directory] [file1] [file2] ...
+   ```
+
+2. **Drag-and-Drop Support**: Users can drag files onto the script to convert them.
+
+3. **Output Directory Specification**: Users can specify an output directory where converted Markdown files will be saved.
+
+### How to Run the Script
+
+1. **Open a terminal or command prompt**.
+2. **Navigate to the directory** where the script is located.
+3. **Run the script** with the required arguments:
+   ```bash
+   python convert_to_markdown.py "C:\path\to\output\directory" "C:\path\to\file1.xlsx" "C:\path\to\file2.csv"
+   ```
+   - Replace `"C:\path\to\output\directory"` with the actual path to the output directory.
+   - Replace `"C:\path\to\file1.xlsx"` and `"C:\path\to\file2.csv"` with the paths to the files you want to convert.

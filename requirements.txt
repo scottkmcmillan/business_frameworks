@@ -1,3 +1,4 @@
 markitdown
+Flask
 # Optional dependencies for enhanced functionality
 # openai  # Uncomment if you want to use LLM features for image descriptions
